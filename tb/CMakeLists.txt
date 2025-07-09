@@ -1,0 +1,2 @@
+add_subdirectory(full_adder)
+add_subdirectory(full_adder_testbench)

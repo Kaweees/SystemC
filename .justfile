@@ -21,7 +21,7 @@ build *build_type='Release':
   @cd build && cmake --build . -j$(nproc)
 
 # Run a package
-run *package='hello':
+run *package='full_adder':
   @./target/release/{{package}}
 
 # Remove build artifacts and non-essential files

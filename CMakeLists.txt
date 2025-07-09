@@ -22,22 +22,25 @@ target_include_directories(
 # Find SystemC using SYSTEMC_HOME environment variable
 set(SYSTEMC_HOME $ENV{SYSTEMC_HOME})
 if(NOT SYSTEMC_HOME)
-  message(FATAL_ERROR "SYSTEMC_HOME environment variable not set. Please set it to the SystemC installation directory.")
+  message(
+    FATAL_ERROR
+      "SYSTEMC_HOME environment variable not set. Please set it to the SystemC installation directory."
+  )
 endif()
 
 # Find SystemC library
-find_library(SYSTEMC_LIBRARY
+find_library(
+  SYSTEMC_LIBRARY
   NAMES systemc
   PATHS ${SYSTEMC_HOME}/lib
-  NO_DEFAULT_PATH
-)
+  NO_DEFAULT_PATH)
 
 # Find SystemC headers
-find_path(SYSTEMC_INCLUDE_DIR
+find_path(
+  SYSTEMC_INCLUDE_DIR
   NAMES systemc.h
   PATHS ${SYSTEMC_HOME}/include
-  NO_DEFAULT_PATH
-)
+  NO_DEFAULT_PATH)
 
 if(NOT SYSTEMC_LIBRARY OR NOT SYSTEMC_INCLUDE_DIR)
   message(FATAL_ERROR "SystemC not found at ${SYSTEMC_HOME}")
@@ -48,23 +51,16 @@ target_link_libraries(${PROJECT_NAME} INTERFACE ${SYSTEMC_LIBRARY})
 target_include_directories(${PROJECT_NAME} INTERFACE ${SYSTEMC_INCLUDE_DIR})
 
 # Add SystemC compile definitions
-target_compile_definitions(${PROJECT_NAME} INTERFACE SC_INCLUDE_DYNAMIC_PROCESSES)
+target_compile_definitions(${PROJECT_NAME}
+                           INTERFACE SC_INCLUDE_DYNAMIC_PROCESSES)
 
 include(CheckLanguage)
 include(FetchContent)
 
-
-
 # Optional builds
-option(BUILD_EXAMPLES "Build examples" ON)
-option(BENCHMARK "Build with benchmark mode" OFF)
-
-# Benchmark mode
-if(BENCHMARK)
-  target_compile_definitions(${PROJECT_NAME} PRIVATE BENCHMARK_MODE)
-endif()
+option(BUILD_TB "Build testbenches" ON)
 
 # Examples
-if(BUILD_EXAMPLES)
-  add_subdirectory(examples)
+if(BUILD_TB)
+  add_subdirectory(tb)
 endif()

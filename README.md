@@ -29,7 +29,7 @@
 
 <!-- ABOUT THE PROJECT -->
 
-A template for creating C++ header-only libraries accelerated with CUDA/Apple Metal
+A template for creating and testing System-Level Models in SystemC.
 
 ### Built With
 
@@ -92,7 +92,7 @@ To get a local copy of the project up and running on your machine, follow these 
 ## Project Structure
 
 ```sh
-graphics/
+SystemC/
 ├── .github/                       - GitHub Actions CI/CD workflows
 ├── include/                       - project header files
 ├── src/                           - project source files

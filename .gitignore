@@ -14,8 +14,8 @@
 
 !include/
 !include/**/
-!examples/
-!examples/**/
+!tb/
+!tb/**/
 !scripts/
 
 !*.md
