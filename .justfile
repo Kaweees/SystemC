@@ -4,7 +4,6 @@
 
 alias b := build
 alias r := run
-alias t := test
 alias c := clean
 alias f := format
 alias d := docs
@@ -24,11 +23,6 @@ build *build_type='Release':
 # Run a package
 run *package='hello':
   @./target/release/{{package}}
-
-# Run code quality tools
-test:
-  @echo "Running tests..."
-  @./target/release/kiwicpp_tests
 
 # Remove build artifacts and non-essential files
 clean:
