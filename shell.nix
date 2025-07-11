@@ -2,13 +2,13 @@
 
 pkgs.mkShell {
   buildInputs = with pkgs; [
+    clang # C++ compiler
+    systemc # SystemC library & headers
+    pkg-config # Dependency discovery
     cmake # CMake build system
     cmake-format # CMake format tool
     nixfmt-classic # Nix formatter
-    clang # C++ compiler
     just # Just runner
-    systemc # SystemC library & headers
-    pkg-config # Dependency discovery
   ];
 
   # Shell hook to set up environment

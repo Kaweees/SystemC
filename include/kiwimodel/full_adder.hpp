@@ -1,19 +1,19 @@
 #pragma once
 
-#include <systemc.h>
+#include <systemc>
 
 namespace kiwimodel {
 
 // Full Adder SystemC Module
 SC_MODULE(full_adder) {
   // Input ports
-  sc_in<bool> a; // First input bit
-  sc_in<bool> b; // Second input bit
-  sc_in<bool> cin; // Carry input
+  sc_core::sc_in<bool> a; // First input bit
+  sc_core::sc_in<bool> b; // Second input bit
+  sc_core::sc_in<bool> cin; // Carry input
 
   // Output ports
-  sc_out<bool> sum; // Sum output
-  sc_out<bool> cout; // Carry output
+  sc_core::sc_out<bool> sum; // Sum output
+  sc_core::sc_out<bool> cout; // Carry output
 
   // Constructor
   SC_CTOR(full_adder) {

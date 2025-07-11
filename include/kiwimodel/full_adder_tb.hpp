@@ -1,6 +1,6 @@
 #pragma once
 
-#include <systemc.h>
+#include <systemc>
 #include <iomanip>
 #include <vector>
 #include <random>
@@ -24,15 +24,15 @@ struct test_vector {
 // Stimulus Generator Module
 SC_MODULE(stimulus_gen) {
   // Output ports to drive DUT
-  sc_out<bool> a_out;
-  sc_out<bool> b_out;
-  sc_out<bool> cin_out;
+  sc_core::sc_out<bool> a_out;
+  sc_core::sc_out<bool> b_out;
+  sc_core::sc_out<bool> cin_out;
 
   // Control signals
-  sc_out<bool> test_complete;
+  sc_core::sc_out<bool> test_complete;
 
   // Clock
-  sc_in<bool> clk;
+  sc_core::sc_in<bool> clk;
 
   // Test vectors
   std::vector<test_vector> test_vectors;
@@ -58,17 +58,17 @@ private:
 // Monitor Module
 SC_MODULE(monitor) {
   // Input ports to monitor DUT
-  sc_in<bool> a_in;
-  sc_in<bool> b_in;
-  sc_in<bool> cin_in;
-  sc_in<bool> sum_in;
-  sc_in<bool> cout_in;
+  sc_core::sc_in<bool> a_in;
+  sc_core::sc_in<bool> b_in;
+  sc_core::sc_in<bool> cin_in;
+  sc_core::sc_in<bool> sum_in;
+  sc_core::sc_in<bool> cout_in;
 
   // Control signals
-  sc_in<bool> test_complete;
+  sc_core::sc_in<bool> test_complete;
 
   // Clock
-  sc_in<bool> clk;
+  sc_core::sc_in<bool> clk;
 
   // Statistics
   unsigned int total_tests;
@@ -95,7 +95,7 @@ private:
 
 // Clock Generator Module
 SC_MODULE(clock_gen) {
-  sc_out<bool> clk_out;
+  sc_core::sc_out<bool> clk_out;
 
   void clock_process();
 
@@ -105,14 +105,14 @@ SC_MODULE(clock_gen) {
 // Top-level Testbench Module
 SC_MODULE(full_adder_testbench) {
   // Clock signal
-  sc_signal<bool> clk_sig;
+  sc_core::sc_signal<bool> clk_sig;
 
   // DUT signals
-  sc_signal<bool> a_sig, b_sig, cin_sig;
-  sc_signal<bool> sum_sig, cout_sig;
+  sc_core::sc_signal<bool> a_sig, b_sig, cin_sig;
+  sc_core::sc_signal<bool> sum_sig, cout_sig;
 
   // Control signals
-  sc_signal<bool> test_complete_sig;
+  sc_core::sc_signal<bool> test_complete_sig;
 
   // Module instances
   full_adder* dut;
@@ -200,7 +200,7 @@ void stimulus_gen::add_random_vectors(int count) {
 
 void stimulus_gen::stimulus_process() {
   // Wait for initial settling
-  wait(1, SC_NS);
+  wait(1, sc_core::SC_NS);
 
   std::cout << "=== Full Adder Testbench Started ===" << std::endl;
 
@@ -214,15 +214,15 @@ void stimulus_gen::stimulus_process() {
     cin_out.write(tv.cin);
 
     // Wait for propagation
-    wait(2, SC_NS);
+    wait(2, sc_core::SC_NS);
   }
 
   // Signal test completion
   test_complete.write(true);
-  wait(5, SC_NS);
+  wait(5, sc_core::SC_NS);
 
   std::cout << "=== Full Adder Testbench Completed ===" << std::endl;
-  sc_stop();
+  sc_core::sc_stop();
 }
 
 // Implementation of monitor methods
@@ -233,6 +233,9 @@ void monitor::monitor_process() {
     wait();
 
     if (!test_complete.read()) {
+      // Wait a bit for DUT to settle after inputs change
+      wait(1, sc_core::SC_NS);
+
       bool a = a_in.read();
       bool b = b_in.read();
       bool cin = cin_in.read();
@@ -277,8 +280,8 @@ void monitor::print_header() {
 
 void monitor::print_result(bool a, bool b, bool cin, bool sum, bool cout, bool expected_sum, bool expected_cout,
                            bool pass) {
-  std::cout << std::setw(8) << sc_time_stamp() << " | " << a << " | " << b << " | " << cin << "   | " << sum << "   | "
-            << cout << "    | " << expected_sum << "            | " << expected_cout << "             | "
+  std::cout << std::setw(8) << sc_core::sc_time_stamp() << " | " << a << " | " << b << " | " << cin << "   | " << sum
+            << "   | " << cout << "    | " << expected_sum << "            | " << expected_cout << "             | "
             << (pass ? "PASS" : "FAIL") << std::endl;
 }
 
@@ -302,9 +305,9 @@ void monitor::print_summary() {
 void clock_gen::clock_process() {
   while (true) {
     clk_out.write(false);
-    wait(5, SC_NS);
+    wait(5, sc_core::SC_NS);
     clk_out.write(true);
-    wait(5, SC_NS);
+    wait(5, sc_core::SC_NS);
   }
 }
 
