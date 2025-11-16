@@ -11,7 +11,7 @@ int sc_main(int argc, char* argv[]) {
   full_adder_testbench tb("TESTBENCH");
 
   // Enable VCD tracing (optional)
-  sc_core::sc_trace_file* tf = sc_core::sc_create_vcd_trace_file("full_adder_traces");
+  sc_core::sc_trace_file* tf = sc_core::sc_create_vcd_trace_file("full_adder_testbench");
   if (tf) {
     sc_core::sc_trace(tf, tb.clk_sig, "clk");
     sc_core::sc_trace(tf, tb.a_sig, "a");
@@ -28,7 +28,7 @@ int sc_main(int argc, char* argv[]) {
   // Close trace file
   if (tf) {
     sc_core::sc_close_vcd_trace_file(tf);
-    std::cout << std::endl << "VCD trace file 'full_adder_traces.vcd' generated." << std::endl;
+    std::cout << std::endl << "VCD trace file 'full_adder_testbench.vcd' generated." << std::endl;
   }
 
   return 0;
