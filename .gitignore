@@ -1,10 +1,13 @@
 *
 
 !.github/
+!.github/**
 !assets/
+!assets/**
 !.editorconfig
 !.gitattributes
 !.gitignore
+!.gitmodules
 !.justfile
 !CMakeLists.txt
 !.clang-format
@@ -13,24 +16,28 @@
 !README.md
 
 !include/
-!include/**/
-!tb/
-!tb/**/
+!include/**
 !scripts/
+!scripts/**
+!tb/
+!tb/**
 
 !*.md
+!*.mdc
 !*.svg
 !*.png
 !*.nix
 !*.lock
+!*.yaml
+!*.yml
 !*.sh
 !*.c
 !*.h
-!*.cpp
-!*.hpp
 !*.cc
 !*.hh
 !*.cxx
 !*.hxx
+!*.cpp
+!*.hpp
 !*.cu
 !*.cuh

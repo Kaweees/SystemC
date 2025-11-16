@@ -28,11 +28,6 @@ build *build_type='Release':
 run package='full_adder_testbench' *args='':
   @./target/release/{{package}} {{args}}
   @uvx --from git+https://github.com/Toroid-io/vcd2wavedrom python -m vcd2wavedrom.vcd2wavedrom -i {{package}}.vcd -o {{package}}.json
-# vcd2wavedrom full_adder_traces.vcd > full_adder.json
-# wavedrom-cli full_adder.json > full_adder.svg
-
-# @wavedrom-cli -i full_adder_traces.vcd -o build/{{package}}.json
-# @wavedrom-cli -i build/{{package}}.vcd -o build/{{package}}.json
 
 # Remove build artifacts and non-essential files
 clean:
